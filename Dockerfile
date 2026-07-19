@@ -1,17 +1,25 @@
-FROM --platform=${BUILDPLATFORM} golang:bullseye as builder
+# Build stage: install all deps and compile TypeScript
+FROM node:22-slim AS builder
 
-WORKDIR /build
-COPY . . 
-ENV CGO_ENABLED=0
-ARG TARGETOS TARGETARCH
-RUN  --mount=type=cache,target=/go/pkg/mod \
-     --mount=type=cache,target=/root/.cache/go-build \
-     GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -o trufflehog .
+WORKDIR /app
 
-FROM alpine:3.22
-RUN apk add --no-cache bash git openssh-client ca-certificates rpm2cpio binutils cpio \
-    && rm -rf /var/cache/apk/* && update-ca-certificates
-COPY --from=builder /build/trufflehog /usr/bin/trufflehog
-COPY entrypoint.sh /etc/entrypoint.sh
-RUN chmod +x /etc/entrypoint.sh
-ENTRYPOINT ["/etc/entrypoint.sh"]
+COPY package.json package-lock.json tsconfig.json ./
+RUN npm ci
+
+COPY src/ src/
+RUN npm run build
+
+# Runtime stage: only production deps + compiled output
+FROM node:22-slim
+
+WORKDIR /app
+
+COPY package.json package-lock.json ./
+RUN npm ci --omit=dev
+
+COPY --from=builder /app/dist ./dist
+
+ENV NODE_ENV=production
+EXPOSE 3100
+
+CMD ["node", "dist/server.js"]
