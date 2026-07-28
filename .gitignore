@@ -1,7 +1,8 @@
 # AI Tools
 .claude
 .gemini
-.opencode
+.opencode/*
+!.opencode/skills/
 
 # IDE and Editors
 **/.idea/
