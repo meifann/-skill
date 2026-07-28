@@ -1,0 +1,20 @@
+app = "agent-signal"
+primary_region = "iad"
+
+[build]
+
+[env]
+  PORT = "3100"
+  NODE_ENV = "production"
+
+[http_service]
+  internal_port = 3100
+  force_https = true
+  auto_stop_machines = "suspend"
+  auto_start_machines = true
+  min_machines_running = 0
+
+[[vm]]
+  memory = "256mb"
+  cpu_kind = "shared"
+  cpus = 1

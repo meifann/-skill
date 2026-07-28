@@ -1,0 +1,71 @@
+{
+  "name": "agent-signal",
+  "version": "0.7.1",
+  "mcpName": "io.github.dan24ou-cpu/agent-signal",
+  "description": "Collective intelligence for AI shopping agents — every agent that connects makes every other agent smarter",
+  "type": "module",
+  "bin": {
+    "agent-signal": "./bin/agent-signal.js"
+  },
+  "files": [
+    "dist",
+    "bin",
+    ".env.example"
+  ],
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "model-context-protocol",
+    "ai-agent",
+    "ai-shopping",
+    "shopping-agent",
+    "ecommerce",
+    "agent-commerce",
+    "collective-intelligence",
+    "product-analytics",
+    "price-intelligence",
+    "deal-detection",
+    "claude",
+    "claude-desktop",
+    "llm-tools",
+    "agent-tools",
+    "product-recommendations",
+    "shopping",
+    "price-comparison",
+    "seller-intelligence",
+    "merchant-analytics",
+    "trending-products",
+    "price-alerts"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dan24ou-cpu/agent-signal"
+  },
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "dev": "tsx src/server.ts",
+    "mcp": "tsx src/mcp/server.ts",
+    "api": "tsx src/api/server.ts",
+    "migrate": "tsx scripts/migrate.ts",
+    "seed": "tsx scripts/seed.ts"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.1",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "express-rate-limit": "^8.3.1",
+    "pg": "^8.13.3",
+    "uuid": "^11.1.0",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.12.0",
+    "@types/pg": "^8.11.11",
+    "@types/uuid": "^10.0.0",
+    "tsx": "^4.19.3",
+    "typescript": "^5.7.3"
+  }
+}

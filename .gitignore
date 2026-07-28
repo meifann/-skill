@@ -174,3 +174,13 @@
 *.lz
 *.lzma
 *.iso
+
+__pycache__/
+*.pyc
+.venv/
+*.egg-info/
+dist/
+build/
+.env
+keys.env
+.mcp.json
